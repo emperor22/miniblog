@@ -133,7 +133,7 @@
                 <span>&nbsp;-&nbsp; {{ post.date_posted.strftime("%B %d, %Y") }}</span>
               </div>
                 <div align="left">
-                <p>{{ post.content|truncate(204, True)|wordwrap|markdown }}</p>
+                
                 </div>
                 <p><a href="{{ url_for('post', post_id=post.id) }}">Read More</a></p>
               </div>
