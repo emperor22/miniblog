@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mini Blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700|Playfair+Display:400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='icomoon/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flaticon/font/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='aos.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <header class="site-navbar" role="banner">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+
+
+
+          <div class="col-4 site-logo">
+            <a href="{{ url_for('index') }}" class="text-black h2 mb-0">Mini Blog</a>
+          </div>
+
+          <div class="col-8 text-right">
+            <nav class="site-navigation" role="navigation">
+              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
+                <li><form method="GET" action='/search' class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" name='q' id='q' placeholder="Search.." aria-label="Search">
+        <button class="btn btn-outline-dark my-2 my-sm-0" style='visibility:hidden;width:5px' type="submit">Search</button>
+    </form></li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('post_it') }}">Post It!</a></li>
+                <li><a href="{{ url_for('drafts') }}">Drafts</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+            <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span class="icon-menu h3"></span></a></div>
+          </div>
+
+      </div>
+    </header>
+
+
+    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('{{ url_for('static', filename='images/background.jpg') }}');">
+      <div class="container">
+        <div class="row same-height justify-content-center">
+          <div class="col-md-12 col-lg-10">
+            <div class="post-entry text-center">
+              <h1 class="">{{ legend }}</h1>
+              <p class="lead mb-4 text-white">Make sure your writing have good formatting and relevant illustrations!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 mb-5 col-lg-12">
+            <form class="p-5 bg-white" method="POST" action="">
+              {{ form.hidden_tag() }}
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black" for="title">Title</label>
+                  {{ form.title(class="form-control") }}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black mt-4" for="content">Content</label>
+                  <p><small>This entry supports Markdown formatting. <a href="https://www.markdownguide.org/basic-syntax/">Click here </a> to learn more about Markdown basic syntax.</small></p>
+                  {{ form.content(class="form-control", cols="30", rows="20", placeholder="Write your post here.") }}
+                </div>
+              </div>
+              {% if legend != 'Edit Post' %}
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black mt-4" for="tags">Tags</label>
+                  <p><small>Use semicolon ( <strong>;</strong> ) as the separator for multiple tags (max. 5 unique tags). Tags can only be assigned ONLY at this entry.</small></p>
+                  {{ form.tags(class="form-control") }}
+                </div>
+              </div>
+              {% endif %}
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black mt-4 mr-3" for="content">Category: </label>
+                  {{ form.category }}
+                </div>
+              </div>
+              {% if published_check==False %}
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black mr-2" for="content">Published: </label>
+                  {{ form.published(class="mt-4") }}
+                  <p><small>  Once the post is published you can no longer unpublish it.</small></p>
+                </div>
+              </div>
+              {% endif %}
+
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  {{ form.submit(class="btn btn-primary py-2 px-4 text-white") }}
+                </div>
+              </div>
+
+
+            </form>
+          </div>
+          <div class="col-md-5">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <script src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery-ui.js') }}"></script>
+  <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery.stellar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery.countdown.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='aos.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+
+</script>
+
+  </body>
+</html>
