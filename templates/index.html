@@ -131,7 +131,12 @@
                 <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Image" class="img-fluid"></figure>
                 <span class="d-inline-block mt-1">By <a href="{{ url_for('user_post', user_id=post.author.id) }}">{{ post.author.name }}</a></span>
                 <span>&nbsp;-&nbsp; {{ post.date_posted.strftime("%B %d, %Y") }}</span>
-              
+              </div>
+                <div align="left">
+                
+                </div>
+                
+              </div>
             </div>
           </div>
           {% endfor %}

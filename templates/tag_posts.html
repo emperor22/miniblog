@@ -91,10 +91,7 @@
                 <span class="d-inline-block mt-1">By <a href="#">{{ post.author.name }}</a></span>
                 <span>&nbsp;-&nbsp; {{ post.date_posted.strftime("%B %d, %Y") }}</span>
               </div>
-                <div align="justify">
-                <p>{{ post.content|truncate(204, True)|wordwrap|markdown }}</p>
-                </div>
-                <p><a href="{{ url_for('post', post_id=post.id) }}">Read More</a></p>
+                
               </div>
             </div>
           </div>
